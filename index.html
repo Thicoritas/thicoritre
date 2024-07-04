@@ -3,17 +3,18 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Thicoritre</title>
+    <title>Thicoritre Converter</title>
     <style>
         body {
-            font-family: Arial, sans-serif;
-            background-color: #f5f5f5;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f0f2f5;
             margin: 0;
             padding: 0;
             display: flex;
             justify-content: center;
             align-items: center;
             height: 100vh;
+            color: #333;
         }
         .container {
             background-color: #fff;
@@ -25,6 +26,8 @@
             max-width: 90%;
         }
         h2 {
+            font-size: 2.5em;
+            font-weight: bold;
             color: #333;
             margin-bottom: 20px;
         }
@@ -32,7 +35,7 @@
             font-size: 18px;
             color: #333;
         }
-        input[type="password"], input[type="text"] {
+        input[type="text"] {
             width: calc(100% - 20px);
             padding: 10px;
             margin: 10px 0;
@@ -41,12 +44,12 @@
             border: 1px solid #ccc;
             transition: border-color 0.3s ease;
         }
-        input[type="password"]:focus, input[type="text"]:focus {
+        input[type="text"]:focus {
             outline: none;
-            border-color: #4CAF50;
+            border-color: #007BFF;
         }
         button {
-            background-color: #4CAF50;
+            background-color: #007BFF;
             color: white;
             padding: 12px 20px;
             border: none;
@@ -54,13 +57,11 @@
             cursor: pointer;
             font-size: 16px;
             margin-top: 10px;
-            transition: background-color 0.3s ease;
+            transition: background-color 0.3s ease, transform 0.3s ease;
         }
         button:hover {
-            background-color: #45a049;
-        }
-        #conversionSection {
-            display: none;
+            background-color: #0056b3;
+            transform: scale(1.05);
         }
         #output {
             font-size: 20px;
@@ -71,39 +72,21 @@
             text-align: left;
             min-height: 50px;
             position: relative;
-        }
-        #copyButton {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background-color: #4CAF50;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            padding: 5px 10px;
-            cursor: pointer;
-            font-size: 14px;
-            transition: background-color 0.3s ease;
-        }
-        #copyButton:hover {
-            background-color: #45a049;
+            transition: background-color 0.3s ease, color 0.3s ease;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <h2>Thicoritre Converter</h2>
-        <div id="passwordSection">
-            <label for="password">Enter Password to Thicoritre convertor</label><br>
-            <input type="password" id="password"><br>
-            <button onclick="checkPassword()">Unlock Content</button>
-        </div>
         <div id="conversionSection">
             <label for="text">Text:</label><br>
             <input type="text" id="text"><br>
             <button onclick="textToEmoji()">Convert to Thicoritre</button>
             <button onclick="emojiToText()">Thicoritre to Text</button><br>
-            <div id="output"></div>
+            <div id="output">
+                
+            </div>
         </div>
     </div>
 
@@ -147,7 +130,14 @@
             for (let char of inputText) {
                 output += letterToEmoji[char] || char;
             }
-            document.getElementById('output').textContent = output;
+            const outputElement = document.getElementById('output');
+            outputElement.textContent = output;
+            outputElement.style.backgroundColor = '#d1ecf1';
+            outputElement.style.color = '#0c5460';
+            setTimeout(() => {
+                outputElement.style.backgroundColor = '#f9f9f9';
+                outputElement.style.color = '#333';
+            }, 500);
         }
 
         function emojiToText() {
@@ -156,28 +146,14 @@
             for (let char of inputText) {
                 output += emojiToLetter[char] || char;
             }
-            document.getElementById('output').textContent = output;
-        }
-
-        function checkPassword() {
-            const password = document.getElementById('password').value;
-            if (password === 'Saleh') {
-                document.getElementById('passwordSection').style.display = 'none';
-                document.getElementById('conversionSection').style.display = 'block';
-            } else {
-                alert('Incorrect password. Please try again.');
-            }
-        }
-
-        function copyToClipboard() {
-            const outputText = document.getElementById('output').textContent;
-            const tempInput = document.createElement('textarea');
-            tempInput.value = outputText;
-            document.body.appendChild(tempInput);
-            tempInput.select();
-            document.execCommand('copy');
-            document.body.removeChild(tempInput);
-            alert('Copied to clipboard!');
+            const outputElement = document.getElementById('output');
+            outputElement.textContent = output;
+            outputElement.style.backgroundColor = '#d4edda';
+            outputElement.style.color = '#155724';
+            setTimeout(() => {
+                outputElement.style.backgroundColor = '#f9f9f9';
+                outputElement.style.color = '#333';
+            }, 500);
         }
     </script>
 </body>
